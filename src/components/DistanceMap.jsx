@@ -225,8 +225,8 @@ export default function DistanceMap({
             pathOptions={{
               pane: "route-line",
               color: "#1f6fff",
-              weight: 6,
-              opacity: 0.95,
+              weight: 4,
+              opacity: 0.72,
               lineCap: "round",
               lineJoin: "round"
             }}
