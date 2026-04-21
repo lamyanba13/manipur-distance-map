@@ -20,6 +20,10 @@ body {
   background: #0a0a0a;
 }
 
+body.map-viewport-fullscreen-active {
+  overflow: hidden;
+}
+
 button,
 input,
 table {
@@ -197,8 +201,26 @@ button {
   background: #0b0b0b;
 }
 
+.map-panel-viewport-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  margin: 0;
+  padding: 20px;
+  border-radius: 0;
+  background: #0b0b0b;
+}
+
 .map-panel:fullscreen .map-shell {
   height: calc(100vh - 92px);
+  border-radius: 20px;
+}
+
+.map-panel-viewport-fullscreen .map-shell {
+  height: calc(100dvh - 92px);
   border-radius: 20px;
 }
 
@@ -417,5 +439,14 @@ button {
 
   .map-shell {
     height: 460px;
+  }
+
+  .map-panel-viewport-fullscreen {
+    padding: 14px;
+  }
+
+  .map-panel-viewport-fullscreen .map-shell {
+    height: calc(100dvh - 122px);
+    border-radius: 16px;
   }
 }

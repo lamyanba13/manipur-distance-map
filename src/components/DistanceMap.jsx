@@ -50,11 +50,13 @@ export default function DistanceMap({
   const visibleRadii = radii.length > 0 ? radii : AVAILABLE_RADIUS_KM;
   const panelRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isViewportFullscreen, setIsViewportFullscreen] = useState(false);
   const [refreshTick, setRefreshTick] = useState(0);
 
   useEffect(() => {
     function handleFullscreenChange() {
-      setIsFullscreen(document.fullscreenElement === panelRef.current);
+      const nativeFullscreen = document.fullscreenElement === panelRef.current;
+      setIsFullscreen(nativeFullscreen || isViewportFullscreen);
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -62,19 +64,49 @@ export default function DistanceMap({
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
-  }, []);
+  }, [isViewportFullscreen]);
+
+  useEffect(() => {
+    setIsFullscreen(Boolean(document.fullscreenElement === panelRef.current || isViewportFullscreen));
+
+    if (isViewportFullscreen) {
+      document.body.classList.add("map-viewport-fullscreen-active");
+      return () => {
+        document.body.classList.remove("map-viewport-fullscreen-active");
+      };
+    }
+
+    document.body.classList.remove("map-viewport-fullscreen-active");
+    return undefined;
+  }, [isViewportFullscreen]);
 
   async function handleFullscreenToggle() {
     if (!panelRef.current) {
       return;
     }
 
+    const nativeRequestFullscreen = panelRef.current.requestFullscreen?.bind(panelRef.current);
+
     if (document.fullscreenElement === panelRef.current) {
       await document.exitFullscreen();
       return;
     }
 
-    await panelRef.current.requestFullscreen();
+    if (isViewportFullscreen) {
+      setIsViewportFullscreen(false);
+      return;
+    }
+
+    if (nativeRequestFullscreen) {
+      try {
+        await nativeRequestFullscreen();
+        return;
+      } catch {
+        // Fall back to CSS-based full-viewport mode on mobile browsers.
+      }
+    }
+
+    setIsViewportFullscreen(true);
   }
 
   function handleRefreshMap() {
@@ -117,7 +149,7 @@ export default function DistanceMap({
   return (
     <section
       ref={panelRef}
-      className={`panel map-panel ${isFullscreen ? "map-panel-fullscreen" : ""}`}
+      className={`panel map-panel ${isFullscreen ? "map-panel-fullscreen" : ""} ${isViewportFullscreen ? "map-panel-viewport-fullscreen" : ""}`}
     >
       <div className="panel-header">
         <div>
