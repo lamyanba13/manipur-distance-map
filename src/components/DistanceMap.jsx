@@ -164,54 +164,56 @@ export default function DistanceMap({
       className={`panel map-panel ${isFullscreen ? "map-panel-fullscreen" : ""} ${isViewportFullscreen ? "map-panel-viewport-fullscreen" : ""}`}
     >
       <div className={`panel-header ${isFullscreen ? "map-panel-header-compact" : ""}`}>
-        <div className="map-heading">
+        <div className="map-heading map-header-box">
           <p className="eyebrow">Distance Map</p>
           <h2>Manipur range view</h2>
         </div>
-        <div className="map-actions">
+        <div className="map-controls-box">
           <p className="map-caption map-caption-compact">
             Straight-line distance from <strong>{origin.name}</strong>
           </p>
-          <button
-            type="button"
-            className="ghost-button map-icon-button"
-            onClick={onTogglePickPointA}
-            aria-label={getPickPointALabel()}
-            title={getPickPointALabel()}
-          >
-            <span className="button-icon-label">A</span>
-            <span className="button-text">{getPickPointALabel()}</span>
-          </button>
-          <button
-            type="button"
-            className="ghost-button map-icon-button"
-            onClick={onTogglePickPointB}
-            aria-label={getPickPointBLabel()}
-            title={getPickPointBLabel()}
-          >
-            <span className="button-icon-label">B</span>
-            <span className="button-text">{getPickPointBLabel()}</span>
-          </button>
-          <button
-            type="button"
-            className="ghost-button map-icon-button"
-            onClick={handleRefreshMap}
-            aria-label="Refresh map"
-            title="Refresh map"
-          >
-            <span className="button-icon-label">R</span>
-            <span className="button-text">Refresh map</span>
-          </button>
-          <button
-            type="button"
-            className="ghost-button map-icon-button"
-            onClick={handleFullscreenToggle}
-            aria-label={getFullscreenLabel()}
-            title={getFullscreenLabel()}
-          >
-            <span className="button-icon-label">{isFullscreen ? "X" : "F"}</span>
-            <span className="button-text">{getFullscreenLabel()}</span>
-          </button>
+          <div className="map-actions">
+            <button
+              type="button"
+              className="ghost-button map-icon-button"
+              onClick={onTogglePickPointA}
+              aria-label={getPickPointALabel()}
+              title={getPickPointALabel()}
+            >
+              <span className="button-icon-label">A</span>
+              <span className="button-text">{getPickPointALabel()}</span>
+            </button>
+            <button
+              type="button"
+              className="ghost-button map-icon-button"
+              onClick={onTogglePickPointB}
+              aria-label={getPickPointBLabel()}
+              title={getPickPointBLabel()}
+            >
+              <span className="button-icon-label">B</span>
+              <span className="button-text">{getPickPointBLabel()}</span>
+            </button>
+            <button
+              type="button"
+              className="ghost-button map-icon-button"
+              onClick={handleRefreshMap}
+              aria-label="Refresh map"
+              title="Refresh map"
+            >
+              <span className="button-icon-label">R</span>
+              <span className="button-text">Refresh map</span>
+            </button>
+            <button
+              type="button"
+              className="ghost-button map-icon-button"
+              onClick={handleFullscreenToggle}
+              aria-label={getFullscreenLabel()}
+              title={getFullscreenLabel()}
+            >
+              <span className="button-icon-label">{isFullscreen ? "X" : "F"}</span>
+              <span className="button-text">{getFullscreenLabel()}</span>
+            </button>
+          </div>
         </div>
       </div>
 
