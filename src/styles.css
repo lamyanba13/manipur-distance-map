@@ -115,6 +115,10 @@ button {
   margin-bottom: 18px;
 }
 
+.map-heading {
+  min-width: 0;
+}
+
 .map-actions {
   display: flex;
   align-items: center;
@@ -171,6 +175,29 @@ button {
   padding: 10px 14px;
 }
 
+.map-icon-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-icon-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.button-text {
+  white-space: nowrap;
+}
+
 .ghost-button:hover,
 .secondary-button:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -209,9 +236,21 @@ button {
   height: 100dvh;
   max-width: none;
   margin: 0;
-  padding: 20px;
+  padding: max(env(safe-area-inset-top), 8px) 0 max(env(safe-area-inset-bottom), 0) 0;
   border-radius: 0;
   background: #0b0b0b;
+}
+
+.map-panel-fullscreen .panel-header,
+.map-panel-viewport-fullscreen .panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 5000;
+  align-items: center;
+  padding: 0 12px 10px;
+  margin-bottom: 12px;
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0.98), rgba(11, 11, 11, 0.86));
+  backdrop-filter: blur(14px);
 }
 
 .map-panel:fullscreen .map-shell {
@@ -220,8 +259,40 @@ button {
 }
 
 .map-panel-viewport-fullscreen .map-shell {
-  height: calc(100dvh - 92px);
-  border-radius: 20px;
+  height: calc(100dvh - 92px - max(env(safe-area-inset-top), 8px) - max(env(safe-area-inset-bottom), 0px));
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.map-panel-header-compact {
+  gap: 10px;
+}
+
+.map-panel-header-compact .eyebrow {
+  margin-bottom: 4px;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.map-panel-header-compact h2 {
+  font-size: 1.05rem;
+  line-height: 1.1;
+}
+
+.map-panel-header-compact .map-actions {
+  gap: 8px;
+}
+
+.map-panel-header-compact .ghost-button {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+}
+
+.map-caption-compact {
+  font-size: 0.8rem;
+  white-space: nowrap;
 }
 
 .map-shell {
@@ -442,11 +513,84 @@ button {
   }
 
   .map-panel-viewport-fullscreen {
-    padding: 14px;
+    padding: max(env(safe-area-inset-top), 6px) 0 max(env(safe-area-inset-bottom), 0) 0;
+  }
+
+  .map-panel-viewport-fullscreen .panel-header,
+  .map-panel:fullscreen .panel-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .map-panel-viewport-fullscreen .map-heading,
+  .map-panel:fullscreen .map-heading {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+
+  .map-panel-viewport-fullscreen .map-heading h2,
+  .map-panel:fullscreen .map-heading h2 {
+    font-size: 0.96rem;
+    white-space: nowrap;
+  }
+
+  .map-panel-viewport-fullscreen .map-actions,
+  .map-panel:fullscreen .map-actions {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .map-panel-viewport-fullscreen .map-actions::-webkit-scrollbar,
+  .map-panel:fullscreen .map-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .map-panel-viewport-fullscreen .map-caption-compact,
+  .map-panel:fullscreen .map-caption-compact {
+    display: none;
+  }
+
+  .map-panel-viewport-fullscreen .ghost-button,
+  .map-panel:fullscreen .ghost-button {
+    flex: 0 0 auto;
+    min-width: 34px;
+    padding: 6px 8px;
+    font-size: 0.72rem;
+  }
+
+  .map-panel-viewport-fullscreen .button-text,
+  .map-panel:fullscreen .button-text {
+    display: none;
+  }
+
+  .map-panel-viewport-fullscreen .map-icon-button,
+  .map-panel:fullscreen .map-icon-button {
+    gap: 0;
+    justify-content: center;
+  }
+
+  .map-panel-viewport-fullscreen .button-icon-label,
+  .map-panel:fullscreen .button-icon-label {
+    width: 18px;
+    height: 18px;
+    background: transparent;
+    font-size: 0.78rem;
   }
 
   .map-panel-viewport-fullscreen .map-shell {
-    height: calc(100dvh - 122px);
-    border-radius: 16px;
+    height: calc(100dvh - 58px - max(env(safe-area-inset-top), 6px) - max(env(safe-area-inset-bottom), 0px));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
   }
 }

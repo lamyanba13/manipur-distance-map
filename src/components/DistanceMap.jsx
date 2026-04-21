@@ -146,47 +146,71 @@ export default function DistanceMap({
 
   const routeLabelPosition = getRouteLabelPosition();
 
+  function getPickPointALabel() {
+    return isPickingPointA ? "Cancel point A pick" : "Pick point A on map";
+  }
+
+  function getPickPointBLabel() {
+    return isPickingPointB ? "Cancel point B pick" : "Pick point B on map";
+  }
+
+  function getFullscreenLabel() {
+    return isFullscreen ? "Exit full screen" : "Full screen";
+  }
+
   return (
     <section
       ref={panelRef}
       className={`panel map-panel ${isFullscreen ? "map-panel-fullscreen" : ""} ${isViewportFullscreen ? "map-panel-viewport-fullscreen" : ""}`}
     >
-      <div className="panel-header">
-        <div>
+      <div className={`panel-header ${isFullscreen ? "map-panel-header-compact" : ""}`}>
+        <div className="map-heading">
           <p className="eyebrow">Distance Map</p>
           <h2>Manipur range view</h2>
         </div>
         <div className="map-actions">
-          <p className="map-caption">
+          <p className="map-caption map-caption-compact">
             Straight-line distance from <strong>{origin.name}</strong>
           </p>
           <button
             type="button"
-            className="ghost-button"
+            className="ghost-button map-icon-button"
             onClick={onTogglePickPointA}
+            aria-label={getPickPointALabel()}
+            title={getPickPointALabel()}
           >
-            {isPickingPointA ? "Cancel point A pick" : "Pick point A on map"}
+            <span className="button-icon-label">A</span>
+            <span className="button-text">{getPickPointALabel()}</span>
           </button>
           <button
             type="button"
-            className="ghost-button"
+            className="ghost-button map-icon-button"
             onClick={onTogglePickPointB}
+            aria-label={getPickPointBLabel()}
+            title={getPickPointBLabel()}
           >
-            {isPickingPointB ? "Cancel point B pick" : "Pick point B on map"}
+            <span className="button-icon-label">B</span>
+            <span className="button-text">{getPickPointBLabel()}</span>
           </button>
           <button
             type="button"
-            className="ghost-button"
+            className="ghost-button map-icon-button"
             onClick={handleRefreshMap}
+            aria-label="Refresh map"
+            title="Refresh map"
           >
-            Refresh map
+            <span className="button-icon-label">R</span>
+            <span className="button-text">Refresh map</span>
           </button>
           <button
             type="button"
-            className="ghost-button"
+            className="ghost-button map-icon-button"
             onClick={handleFullscreenToggle}
+            aria-label={getFullscreenLabel()}
+            title={getFullscreenLabel()}
           >
-            {isFullscreen ? "Exit full screen" : "Full screen"}
+            <span className="button-icon-label">{isFullscreen ? "X" : "F"}</span>
+            <span className="button-text">{getFullscreenLabel()}</span>
           </button>
         </div>
       </div>
