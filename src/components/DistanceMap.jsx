@@ -34,7 +34,9 @@ function MapPointPicker({ enabled, onPick }) {
 
 export default function DistanceMap({
   origin,
+  originDetail,
   destination,
+  destinationDetail,
   radii,
   routeGeometry,
   routeDistanceKm,
@@ -158,6 +160,22 @@ export default function DistanceMap({
     return isFullscreen ? "Exit full screen" : "Full screen";
   }
 
+  function getLocalStreetLabel(detail) {
+    if (!detail) {
+      return "";
+    }
+
+    const parts = detail
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean);
+
+    return parts.slice(0, 2).join(" • ");
+  }
+
+  const originStreetLabel = getLocalStreetLabel(originDetail);
+  const destinationStreetLabel = getLocalStreetLabel(destinationDetail);
+
   return (
     <section
       ref={panelRef}
@@ -273,7 +291,10 @@ export default function DistanceMap({
           }}
         >
           <Tooltip direction="top" permanent offset={[0, -10]}>
-            {origin.name} (Origin A)
+            <div className="map-tooltip-stack">
+              <strong>{origin.name} (Origin A)</strong>
+              {originStreetLabel ? <span>{originStreetLabel}</span> : null}
+            </div>
           </Tooltip>
         </CircleMarker>
 
@@ -312,7 +333,10 @@ export default function DistanceMap({
             }}
           >
             <Tooltip direction="top" permanent offset={[0, -10]}>
-              {destination.name} (Point B)
+              <div className="map-tooltip-stack">
+                <strong>{destination.name} (Point B)</strong>
+                {destinationStreetLabel ? <span>{destinationStreetLabel}</span> : null}
+              </div>
             </Tooltip>
           </CircleMarker>
         ) : null}

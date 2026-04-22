@@ -339,6 +339,17 @@ button {
   color: #ffffff;
 }
 
+.map-tooltip-stack {
+  display: grid;
+  gap: 2px;
+}
+
+.map-tooltip-stack span {
+  color: #c8c8c8;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
 .radius-label-icon {
   background: transparent;
   border: none;

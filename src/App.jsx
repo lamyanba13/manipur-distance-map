@@ -487,7 +487,9 @@ export default function App() {
         <section className="visual-stack">
           <DistanceMap
             origin={safePointA}
+            originDetail={resolveState.pointA.displayName}
             destination={safePointB}
+            destinationDetail={resolveState.pointB.displayName}
             radii={selectedRadii}
             routeGeometry={routeState.data?.geometry ?? []}
             routeDistanceKm={routeState.data?.distanceKm ?? null}
